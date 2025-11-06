@@ -1,0 +1,102 @@
+import re
+
+# For colored output
+from colorama import Fore, Style, init
+init(autoreset=True)
+
+def analyze_password(password):
+    """
+    Analyze password strength and return score, strength, and feedback list.
+    """
+    score = 0
+    feedback = []
+
+    # --- Length check ---
+    if len(password) >= 12:
+        score += 2
+    elif len(password) >= 8:
+        score += 1
+    else:
+        feedback.append("Password should be at least 8 characters long.")
+
+    # --- Uppercase check ---
+    if re.search(r"[A-Z]", password):
+        score += 1
+    else:
+        feedback.append("Password should contain at least one uppercase letter.")
+
+    # --- Lowercase check ---
+    if re.search(r"[a-z]", password):
+        score += 1
+    else:
+        feedback.append("Password should contain at least one lowercase letter.")
+
+    # --- Number check ---
+    if re.search(r"[0-9]", password):
+        score += 1
+    else:
+        feedback.append("Password should contain at least one number.")
+
+    # --- Special character check ---
+    if re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+        score += 1
+    else:
+        feedback.append("Password should contain at least one special character.")
+
+    # --- Repeated character check ---
+    if re.search(r"(.)\1{2,}", password):
+        feedback.append("Avoid using repeated characters (e.g., 'aaa').")
+
+    # --- Common password check ---
+    common_words = ["password", "123456", "qwerty", "letmein", "admin"]
+    if any(word.lower() in password.lower() for word in common_words):
+        feedback.append("Avoid common or predictable words in your password.")
+
+    # --- Determine strength ---
+    if score >= 6:
+        strength = "Very Strong"
+        color = Fore.GREEN
+    elif score >= 4:
+        strength = "Strong"
+        color = Fore.LIGHTGREEN_EX
+    elif score >= 3:
+        strength = "Moderate"
+        color = Fore.YELLOW
+    else:
+        strength = "Weak"
+        color = Fore.RED
+
+    return {"strength": strength, "color": color, "score": score, "feedback": feedback}
+
+
+def display_result(result):
+    """
+    Display password analysis result in a formatted and colored output.
+    """
+    print("\n" + "="*40)
+    print(f"Password Strength: {result['color']}{result['strength']}{Style.RESET_ALL}")
+    print(f"Score: {result['score']} / 7")
+    print("-"*40)
+
+    if result['feedback']:
+        print(f"{Fore.CYAN}Recommendations:{Style.RESET_ALL}")
+        for item in result['feedback']:
+            print(f"  ❌ {item}")
+    else:
+        print(f"{Fore.GREEN}✅ Excellent! Your password meets all requirements.")
+    print("="*40 + "\n")
+
+
+def main():
+    """
+    Main entry point for the password analyzer.
+    """
+    print(Fore.CYAN + "=== PASSWORD COMPLEXITY ANALYZER ===" + Style.RESET_ALL)
+    password = input("Enter password: ").strip()
+    result = analyze_password(password)
+    display_result(result)
+
+
+if __name__ == "__main__":
+    main()
+
