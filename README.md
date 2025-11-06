@@ -4,8 +4,11 @@ A password complexity analysis tool, also known as a password strength checker, 
 
 Password	Expected Strength	Example Output Color
 abc	Weak	🔴 Red
+
 abcD123	Moderate	🟡 Yellow
+
 Abcdef12!	Strong	🟢 Light Green
+
 My$SuperPassword2024	Very Strong	🟢 Bright Green
 
 me to make this version (with hidden input + improved output summary) ready for it ...
