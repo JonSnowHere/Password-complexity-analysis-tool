@@ -1,0 +1,59 @@
+🧩 Setup
+
+Before running this, install Colorama (only once):
+
+pip install colorama
+
+
+🧩 1. Save the Script
+
+Open any code editor (like VS Code, Notepad++, or even Notepad) and paste this full code into it.
+
+Save it as:
+
+password_analyzer.py
+
+
+🚀 3. Run the Program
+
+Once installed, run the script with:
+
+python password_analyzer.py
+
+
+
+You should see something like this:
+
+=== PASSWORD COMPLEXITY ANALYZER ===
+Enter password:
+
+🔐 4. Enter a Password
+
+Type any password you want to test (e.g. Password123!) and press Enter.
+
+The analyzer will display a colored report, like:
+
+========================================
+Password Strength: Strong
+Score: 5 / 7
+----------------------------------------
+Recommendations:
+  ❌ Avoid common or predictable words in your password.
+========================================
+
+
+
+🟩 5. Try Examples
+Password	Expected Strength	Example Output Color
+abc	Weak	🔴 Red
+abcD123	Moderate	🟡 Yellow
+Abcdef12!	Strong	🟢 Light Green
+My$SuperPassword2024	Very Strong	🟢 Bright Green
+
+
+
+
+
+
+
+=========================================
